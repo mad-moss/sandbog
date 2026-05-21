@@ -1,12 +1,8 @@
-use macroquad::prelude::*;
-pub mod element;
-pub use element::*;
+use macroquad::{miniquad::conf::Conf, window::next_frame};
 mod grid;
-use grid::*;
 
 const WIDTH: u16 = 800;
 const HEIGHT: u16 = 600;
-const BACKGROUND_COLOR: Color = BLACK;
 
 fn conf() -> Conf {
     Conf {
@@ -20,15 +16,10 @@ fn conf() -> Conf {
 
 #[macroquad::main(conf)]
 async fn main() {
-    let grid = Grid::new(WIDTH, HEIGHT, Element::default());
-
     loop {
         // UPDATE
 
         // DRAW
-        clear_background(BACKGROUND_COLOR);
-        let texture = Texture2D::from_rgba8(WIDTH, HEIGHT, &grid.as_slice());
-        draw_texture(&texture, 0., 0., WHITE);
 
         next_frame().await
     }
