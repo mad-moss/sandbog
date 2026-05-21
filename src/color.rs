@@ -1,25 +1,23 @@
 #[derive(Clone)]
-pub struct Element {
+pub struct Color {
     r: u8,
     g: u8,
     b: u8,
-    a: u8,
 }
-impl Default for Element {
+impl Default for Color {
     fn default() -> Self {
         Self {
             r: 64,
             g: 64,
             b: 64,
-            a: 255,
         }
     }
 }
-impl Element {
+impl Color {
     pub fn new(r: u8, g: u8, b: u8) -> Self {
-        Self { r, g, b, a: 255 }
+        Self { r, g, b }
     }
-    pub fn as_slice(&self) -> [u8; 4] {
-        [self.r, self.g, self.b, self.a]
+    pub fn as_bytes(&self) -> [u8; 3] {
+        [self.r, self.g, self.b]
     }
 }
