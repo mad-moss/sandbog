@@ -1,9 +1,9 @@
 type Color = [u8; 3];
 
 pub struct Cell {
-    x: f32,
-    y: f32,
-    width: f32,
-    height: f32,
+    x: u32,
+    y: u32,
+    width: u32,
+    height: u32,
     color: Color,
 }
