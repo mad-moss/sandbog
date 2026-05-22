@@ -24,7 +24,7 @@ impl Cell {
     pub fn recolor(&mut self, color: Color) {
         self.color = color;
     }
-    pub fn split(&mut self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
+    pub fn split(self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
         let width = self.width * cells_wide;
         let height = self.height * cells_tall;
         let mut cells = vec![];
