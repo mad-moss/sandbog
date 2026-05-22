@@ -1,7 +1,4 @@
-use macroquad::{
-    miniquad::conf::Conf,
-    window::{self, next_frame},
-};
+use macroquad::window::{self, next_frame};
 mod grid;
 
 const CONFIG_PATH: &str = "config.toml";
