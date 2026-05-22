@@ -1,20 +1,21 @@
+pub use crate::scene::{Place, Placeable};
+
 type Color = [u8; 3];
 
 pub struct Cell {
-    x: f32,
-    y: f32,
-    width: f32,
-    height: f32,
+    place: Place,
     color: Color,
 }
 
 impl Cell {
     fn new(x: f32, y: f32, width: f32, height: f32, color: Color) -> Self {
         Self {
-            x,
-            y,
-            width,
-            height,
+            place: Place {
+                x,
+                y,
+                width,
+                height,
+            },
             color,
         }
     }
@@ -25,13 +26,13 @@ impl Cell {
         self.color = color;
     }
     pub fn split(self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
-        let width = self.width / cells_wide as f32;
-        let height = self.height / cells_tall as f32;
+        let width = self.place.width / cells_wide as f32;
+        let height = self.place.height / cells_tall as f32;
         let mut cells = vec![];
         for ix in 0..cells_wide {
             for iy in 0..cells_tall {
-                let x = self.x + ix as f32 * width;
-                let y = self.y + iy as f32 * height;
+                let x = self.place.x + ix as f32 * width;
+                let y = self.place.y + iy as f32 * height;
                 let cell = Self::new(x, y, width, height, self.color);
                 cells.push(cell);
             }
@@ -44,11 +45,11 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     let mut xs: Vec<f32> = vec![];
     let mut ys: Vec<f32> = vec![];
     for cell in cells {
-        let left = cell.x;
-        let right = cell.x + cell.width;
+        let left = cell.place.x;
+        let right = cell.place.x + cell.place.width;
         xs.extend_from_slice(&[left, right]);
-        let top = cell.y;
-        let bottom = cell.y + cell.height;
+        let top = cell.place.y;
+        let bottom = cell.place.y + cell.place.height;
         ys.extend_from_slice(&[top, bottom]);
     }
 
@@ -61,4 +62,13 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     let height = *ys.last().unwrap();
 
     Cell::new(x, y, width, height, color)
+}
+
+impl Placeable for Cell {
+    fn get_place(&self) -> Place {
+        self.place
+    }
+    fn set_place(&mut self, place: Place) {
+        self.place = place;
+    }
 }

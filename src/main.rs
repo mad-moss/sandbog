@@ -1,5 +1,11 @@
-use macroquad::window::{self, next_frame};
-mod grid;
+// REMOVE THIS
+#![allow(dead_code, unused_imports, unused_variables)]
+// REMOVE THAT
+
+pub mod grid;
+pub mod scene;
+use crate::{grid::Grid, scene::Scene};
+use macroquad::window;
 
 const CONFIG_PATH: &str = "config.toml";
 
@@ -22,11 +28,16 @@ async fn main() {
 
         // DRAW
 
-        next_frame().await
+        window::next_frame().await
     }
 }
 
 fn load_config(path: &str) -> Config {
     let config_string = std::fs::read_to_string(path).unwrap();
     toml::from_str(&config_string).unwrap()
+}
+
+fn fit_to_window(scene: Scene) {
+    let window_width = window::screen_width();
+    let window_height = window::screen_height();
 }
