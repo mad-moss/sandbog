@@ -1,6 +1,17 @@
 pub use crate::scene::{Place, Placeable};
 
-type Color = [u8; 3];
+pub const DEFAULT_CELL_COLOR: Color = Color {
+    r: 63,
+    g: 63,
+    b: 63,
+};
+
+#[derive(Clone, Copy)]
+pub struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
 
 pub struct Cell {
     place: Place,
