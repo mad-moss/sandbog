@@ -19,7 +19,7 @@ pub struct Cell {
 }
 
 impl Cell {
-    fn new(place: Place, color: Color) -> Self {
+    pub fn new(place: Place, color: Color) -> Self {
         Self { place, color }
     }
     pub fn color(&self) -> Color {
