@@ -3,12 +3,12 @@ use cell::*;
 
 pub struct Grid {
     place: Place,
-    grid: Vec<Cell>,
+    cells: Vec<Cell>,
 }
 
 impl Grid {
     pub fn add_cell(&mut self, cell: Cell) {
-        self.grid.push(cell);
+        self.cells.push(cell);
     }
 }
 
