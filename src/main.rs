@@ -1,21 +1,24 @@
-use macroquad::{miniquad::conf::Conf, window::next_frame};
+use macroquad::{
+    miniquad::conf::Conf,
+    window::{self, next_frame},
+};
 mod grid;
 
-const WINDOW_WIDTH: u16 = 800;
-const WINDOW_HEIGHT: u16 = 600;
+const CONFIG_PATH: &str = "config.toml";
 
-fn conf() -> Conf {
-    Conf {
-        window_title: String::from("Sandbog"),
-        window_width: WINDOW_WIDTH as i32,
-        window_height: WINDOW_HEIGHT as i32,
-        window_resizable: false,
-        ..Default::default()
-    }
+#[derive(serde::Deserialize)]
+struct Config {
+    default_window_size: [u16; 2],
+    default_grid_size: [u8; 2],
 }
 
-#[macroquad::main(conf)]
+#[macroquad::main("Sandbog")]
 async fn main() {
+    let config_string = std::fs::read_to_string(CONFIG_PATH).unwrap();
+    let config: Config = toml::from_str(&config_string).unwrap();
+    let [window_width, window_height] = config.default_window_size;
+    window::request_new_screen_size(window_width as f32, window_height as f32);
+
     loop {
         // UPDATE
 
