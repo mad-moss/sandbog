@@ -25,13 +25,17 @@ impl Cell {
         self.color = color;
     }
     pub fn split(&mut self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
-        let width = self.width
-        let new_cells = vec![];
+        let width = self.width * cells_wide;
+        let height = self.height * cells_tall;
+        let mut cells = vec![];
         for ix in 0..cells_wide {
             for iy in 0..cells_tall {
-
+                let x = self.x + ix * width;
+                let y = self.y + iy * height;
+                let cell = Self::new(x, y, width, height, self.color);
+                cells.push(cell);
             }
         }
-        new_cells
+        cells
     }
 }
