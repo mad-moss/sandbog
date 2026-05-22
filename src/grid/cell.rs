@@ -55,11 +55,10 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     xs.sort_by(f32::total_cmp);
     ys.sort_by(f32::total_cmp);
 
-    let error = "trying to merge zero cells???";
-    let x = *xs.first().expect(error);
-    let y = *ys.first().expect(error);
-    let width = *xs.last().expect(error);
-    let height = *ys.last().expect(error);
+    let x = *xs.first().unwrap();
+    let y = *ys.first().unwrap();
+    let width = *xs.last().unwrap();
+    let height = *ys.last().unwrap();
 
     Cell::new(x, y, width, height, color)
 }
