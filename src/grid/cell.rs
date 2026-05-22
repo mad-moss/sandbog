@@ -39,3 +39,27 @@ impl Cell {
         cells
     }
 }
+
+pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
+    let mut xs: Vec<f32> = vec![];
+    let mut ys: Vec<f32> = vec![];
+    for cell in cells {
+        let left = cell.x;
+        let right = cell.x + cell.width;
+        xs.extend_from_slice(&[left, right]);
+        let top = cell.y;
+        let bottom = cell.y + cell.height;
+        ys.extend_from_slice(&[top, bottom]);
+    }
+
+    xs.sort_by(f32::total_cmp);
+    ys.sort_by(f32::total_cmp);
+
+    let error = "trying to merge zero cells???";
+    let x = *xs.first().expect(error);
+    let y = *ys.first().expect(error);
+    let width = *xs.last().expect(error);
+    let height = *ys.last().expect(error);
+
+    Cell::new(x, y, width, height, color)
+}
