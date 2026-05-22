@@ -8,16 +8,8 @@ pub struct Cell {
 }
 
 impl Cell {
-    fn new(x: f32, y: f32, width: f32, height: f32, color: Color) -> Self {
-        Self {
-            place: Place {
-                x,
-                y,
-                width,
-                height,
-            },
-            color,
-        }
+    fn new(place: Place, color: Color) -> Self {
+        Self { place, color }
     }
     pub fn color(&self) -> Color {
         self.color
@@ -33,7 +25,13 @@ impl Cell {
             for iy in 0..cells_tall {
                 let x = self.place.x + ix as f32 * width;
                 let y = self.place.y + iy as f32 * height;
-                let cell = Self::new(x, y, width, height, self.color);
+                let place = Place {
+                    x,
+                    y,
+                    width,
+                    height,
+                };
+                let cell = Self::new(place, self.color);
                 cells.push(cell);
             }
         }
@@ -61,7 +59,13 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     let width = *xs.last().unwrap();
     let height = *ys.last().unwrap();
 
-    Cell::new(x, y, width, height, color)
+    let place = Place {
+        x,
+        y,
+        width,
+        height,
+    };
+    Cell::new(place, color)
 }
 
 impl Placeable for Cell {
