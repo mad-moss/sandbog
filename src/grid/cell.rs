@@ -26,12 +26,12 @@ impl Cell {
     }
     pub fn split(&mut self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
         let width = self.width
-        let children = vec![];
+        let new_cells = vec![];
         for ix in 0..cells_wide {
             for iy in 0..cells_tall {
 
             }
         }
-        children
+        new_cells
     }
 }
