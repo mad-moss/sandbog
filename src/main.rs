@@ -12,7 +12,7 @@ const CONFIG_PATH: &str = "config.toml";
 #[derive(serde::Deserialize)]
 struct Config {
     default_window_size: [u16; 2],
-    default_grid_size: [u8; 2],
+    default_grid_size: [u32; 2],
 }
 
 #[macroquad::main("Sandbog")]
