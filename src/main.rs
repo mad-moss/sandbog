@@ -22,6 +22,9 @@ struct Config {
 async fn main() {
     let config = load_config(CONFIG_PATH);
 
+    // TODO: safely remove this
+    assert_eq!(config.default_grid_size[0], config.default_grid_size[1]);
+
     // set window size
     let [window_width, window_height] = config.default_window_size;
     window::request_new_screen_size(window_width as f32, window_height as f32);
@@ -35,6 +38,7 @@ async fn main() {
 
     loop {
         // UPDATE
+        fit_to_window(&mut scene);
 
         // DRAW
         window::clear_background(macroquad::color::BLACK);
@@ -49,7 +53,12 @@ fn load_config(path: &str) -> Config {
     toml::from_str(&config_string).unwrap()
 }
 
-fn fit_to_window(scene: Scene) {
+fn fit_to_window(scene: &mut Scene) {
     let window_width = window::screen_width();
     let window_height = window::screen_height();
+
+    // TODO: make this work for non-square grids
+    let grid_size = window_width.min(window_height);
+    scene.grid.w = grid_size;
+    scene.grid.h = grid_size;
 }
