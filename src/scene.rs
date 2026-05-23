@@ -25,8 +25,14 @@ pub mod color {
 
     #[derive(Clone, Copy)]
     pub struct Color {
-        r: u8,
-        g: u8,
-        b: u8,
+        pub r: u8,
+        pub g: u8,
+        pub b: u8,
+    }
+
+    impl From<Color> for macroquad::color::Color {
+        fn from(color: Color) -> Self {
+            macroquad::color::Color::from_rgba(color.r, color.g, color.b, 255)
+        }
     }
 }
