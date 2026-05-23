@@ -65,12 +65,3 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     };
     Cell::new(place, color)
 }
-
-impl Placeable for Cell {
-    fn get_place(&self) -> Place {
-        self.place
-    }
-    fn set_place(&mut self, place: Place) {
-        self.place = place;
-    }
-}
