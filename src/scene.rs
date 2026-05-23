@@ -15,6 +15,10 @@ pub trait Placeable {
     fn set_place(&mut self, place: Place);
 }
 
+pub trait Drawable {
+    fn draw(&self);
+}
+
 pub mod color {
 
     pub const DEFAULT_CELL_COLOR: Color = Color {

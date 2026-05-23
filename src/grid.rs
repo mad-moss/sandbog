@@ -1,4 +1,5 @@
 mod cell;
+use crate::scene::Drawable;
 use cell::*;
 
 pub struct Grid {
@@ -36,5 +37,19 @@ impl Placeable for Grid {
     }
     fn set_place(&mut self, place: Place) {
         self.place = place;
+    }
+}
+
+impl Drawable for Grid {
+    fn draw(&self) {
+        for cell in &self.cells {
+            macroquad::shapes::draw_rectangle(
+                self.place.x + cell.place.x,
+                self.place.y + cell.place.y,
+                cell.place.width,
+                cell.place.height,
+                macroquad::color::Color::from(cell.color),
+            );
+        }
     }
 }
