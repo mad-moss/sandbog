@@ -35,6 +35,9 @@ impl Cell {
     }
 }
 
+// FOR SURE doesn't work right
+// it'll be very annoying to work out
+// that's fine.
 pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     let mut xs: Vec<PlaceParam> = vec![];
     let mut ys: Vec<PlaceParam> = vec![];
