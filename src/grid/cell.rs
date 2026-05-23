@@ -1,8 +1,8 @@
 pub use crate::scene::{Place, Placeable, color::*};
 
 pub struct Cell {
-    place: Place,
-    color: Color,
+    pub place: Place,
+    pub color: Color,
 }
 
 impl Cell {
