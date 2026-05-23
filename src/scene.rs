@@ -1,5 +1,5 @@
 pub struct Scene {
-    grid: crate::grid::Grid,
+    pub grid: crate::grid::Grid,
 }
 
 pub trait Placeable {
