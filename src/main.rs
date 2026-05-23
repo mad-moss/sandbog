@@ -4,7 +4,10 @@
 
 pub mod grid;
 pub mod scene;
-use crate::{grid::Grid, scene::Scene};
+use crate::{
+    grid::Grid,
+    scene::{Drawable, Scene},
+};
 use macroquad::window;
 
 const CONFIG_PATH: &str = "config.toml";
@@ -23,10 +26,19 @@ async fn main() {
     let [window_width, window_height] = config.default_window_size;
     window::request_new_screen_size(window_width as f32, window_height as f32);
 
+    let mut scene = Scene {
+        grid: Grid::new([0., 0., window_width as f32, window_height as f32]),
+    };
+    scene
+        .grid
+        .init(config.default_grid_size[0], config.default_grid_size[1]);
+
     loop {
         // UPDATE
 
         // DRAW
+        window::clear_background(macroquad::color::BLACK);
+        scene.grid.draw();
 
         window::next_frame().await
     }
