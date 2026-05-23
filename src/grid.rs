@@ -14,13 +14,12 @@ impl Grid {
         }
     }
     pub fn init(&mut self, cells_wide: u32, cells_tall: u32) {
-        let [x, y, width, height] = [0., 0., self.place.width, self.place.height];
         let cell_prime = Cell::new(
             Place {
-                x,
-                y,
-                width,
-                height,
+                x: 0.,
+                y: 0.,
+                width: self.place.width,
+                height: self.place.height,
             },
             DEFAULT_CELL_COLOR,
         );
