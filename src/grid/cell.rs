@@ -20,6 +20,9 @@ impl Cell {
         self.color = color;
     }
     pub fn split(self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
+        // determine the size of the new cells
+        // split() will only produce cells of equal sizes
+        // this is intentional
         let width = 1. / cells_wide as PlaceParam;
         let height = 1. / cells_tall as PlaceParam;
         let mut cells = vec![];
@@ -38,6 +41,9 @@ impl Cell {
 // FOR SURE doesn't work right
 // it'll be very annoying to work out
 // that's fine.
+// TODO: it's probably best to follow these rules
+//       - cells must be of equal sizes
+//       - cells must form a complete and contiguous rectangle
 pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
     let mut xs: Vec<PlaceParam> = vec![];
     let mut ys: Vec<PlaceParam> = vec![];
