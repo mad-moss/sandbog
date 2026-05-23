@@ -3,10 +3,10 @@ use crate::scene::Drawable;
 use cell::*;
 
 pub struct Grid {
-    x: PlaceParam,
-    y: PlaceParam,
-    w: PlaceParam,
-    h: PlaceParam,
+    pub x: PlaceParam,
+    pub y: PlaceParam,
+    pub w: PlaceParam,
+    pub h: PlaceParam,
     cells: Vec<Cell>,
 }
 
