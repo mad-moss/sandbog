@@ -20,13 +20,13 @@ impl Cell {
         self.color = color;
     }
     pub fn split(self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
-        let width = self.w / cells_wide as f32;
-        let height = self.h / cells_tall as f32;
+        let width = self.w / cells_wide as PlaceParam;
+        let height = self.h / cells_tall as PlaceParam;
         let mut cells = vec![];
         for ix in 0..cells_wide {
             for iy in 0..cells_tall {
-                let x = self.x + ix as f32 * width;
-                let y = self.y + iy as f32 * height;
+                let x = self.x + ix as PlaceParam * width;
+                let y = self.y + iy as PlaceParam * height;
                 let cell = Self::new(self.place(), self.color);
                 cells.push(cell);
             }
@@ -36,8 +36,8 @@ impl Cell {
 }
 
 pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
-    let mut xs: Vec<f32> = vec![];
-    let mut ys: Vec<f32> = vec![];
+    let mut xs: Vec<PlaceParam> = vec![];
+    let mut ys: Vec<PlaceParam> = vec![];
     for cell in cells {
         let left = cell.x;
         let right = cell.x + cell.w;
@@ -47,8 +47,8 @@ pub fn merge_cells(cells: Vec<Cell>, color: Color) -> Cell {
         ys.extend_from_slice(&[top, bottom]);
     }
 
-    xs.sort_by(f32::total_cmp);
-    ys.sort_by(f32::total_cmp);
+    xs.sort_by(PlaceParam::total_cmp);
+    ys.sort_by(PlaceParam::total_cmp);
 
     let x = *xs.first().unwrap();
     let y = *ys.first().unwrap();
