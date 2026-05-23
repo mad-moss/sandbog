@@ -22,7 +22,7 @@ impl Grid {
         }
     }
     pub fn init(&mut self, cells_wide: u32, cells_tall: u32) {
-        let cell_prime = Cell::new([0., 0., self.w, self.h], DEFAULT_CELL_COLOR);
+        let cell_prime = Cell::new([0., 0., 1., 1.], DEFAULT_CELL_COLOR);
         self.cells = cell_prime.split(cells_wide, cells_tall);
     }
     pub fn add_cell(&mut self, cell: Cell) {
@@ -42,8 +42,8 @@ impl Drawable for Grid {
             macroquad::shapes::draw_rectangle(
                 self.x + cell.x,
                 self.y + cell.y,
-                cell.w,
-                cell.h,
+                self.w * cell.w,
+                self.h * cell.h,
                 macroquad::color::Color::from(cell.color),
             );
         }

@@ -20,8 +20,8 @@ impl Cell {
         self.color = color;
     }
     pub fn split(self, cells_wide: u32, cells_tall: u32) -> Vec<Self> {
-        let width = self.w / cells_wide as PlaceParam;
-        let height = self.h / cells_tall as PlaceParam;
+        let width = 1. / cells_wide as PlaceParam;
+        let height = 1. / cells_tall as PlaceParam;
         let mut cells = vec![];
         for ix in 0..cells_wide {
             for iy in 0..cells_tall {
