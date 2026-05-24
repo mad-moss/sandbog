@@ -1,38 +1,43 @@
-use macroquad::{
-    miniquad::conf::Conf,
-    texture::{Texture2D, draw_texture},
-    window::{clear_background, next_frame},
-};
 pub mod color;
 pub use color::*;
 mod grid;
 use grid::*;
 
-const WIDTH: u16 = 800;
-const HEIGHT: u16 = 600;
-const BACKGROUND_COLOR: Color = BLACK;
+const CONFIG_PATH: &str = "config.toml";
 
-fn conf() -> Conf {
-    Conf {
-        window_title: String::from("Sandbog"),
-        window_width: WIDTH as i32,
-        window_height: HEIGHT as i32,
-        ..Default::default()
-    }
+#[derive(serde::Deserialize)]
+struct Config {
+    default_window_size: [u16; 2],
+    default_grid_size: [u16; 2],
 }
 
-#[macroquad::main(conf)]
+const BACKGROUND_COLOR: Color = BLACK;
+
+#[macroquad::main("Sandbog")]
 async fn main() {
-    let grid = Grid::new(WIDTH, HEIGHT, Color::default());
+    let config = load_config(CONFIG_PATH);
+
+    // set window size
+    let [window_width, window_height] = config.default_window_size;
+    macroquad::window::request_new_screen_size(window_width as f32, window_height as f32);
+
+    let [grid_width, grid_height] = config.default_grid_size;
+    let grid = Grid::new(grid_width, grid_height, Color::default());
 
     loop {
         // UPDATE
 
         // DRAW
-        clear_background(macroquad::color::Color::from(BACKGROUND_COLOR));
-        let texture = Texture2D::from_rgba8(WIDTH, HEIGHT, &grid.to_bytes());
-        draw_texture(&texture, 0., 0., macroquad::color::WHITE);
+        macroquad::window::clear_background(macroquad::color::Color::from(BACKGROUND_COLOR));
+        let texture =
+            macroquad::texture::Texture2D::from_rgba8(grid.width, grid.height, &grid.to_bytes());
+        macroquad::texture::draw_texture(&texture, 0., 0., macroquad::color::WHITE);
 
-        next_frame().await
+        macroquad::window::next_frame().await
     }
+}
+
+fn load_config(path: &str) -> Config {
+    let config_string = std::fs::read_to_string(path).unwrap();
+    toml::from_str(&config_string).unwrap()
 }

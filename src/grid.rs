@@ -3,8 +3,8 @@ use crate::Color;
 pub type GridIndex = u16;
 
 pub struct Grid {
-    width: GridIndex,
-    height: GridIndex,
+    pub width: GridIndex,
+    pub height: GridIndex,
     grid: Vec<Color>,
 }
 
