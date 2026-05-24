@@ -1,6 +1,10 @@
-use macroquad::prelude::*;
-pub mod element;
-pub use element::*;
+use macroquad::{
+    miniquad::conf::Conf,
+    texture::{Texture2D, draw_texture},
+    window::{clear_background, next_frame},
+};
+pub mod color;
+pub use color::*;
 mod grid;
 use grid::*;
 
@@ -13,22 +17,21 @@ fn conf() -> Conf {
         window_title: String::from("Sandbog"),
         window_width: WIDTH as i32,
         window_height: HEIGHT as i32,
-        window_resizable: false,
         ..Default::default()
     }
 }
 
 #[macroquad::main(conf)]
 async fn main() {
-    let grid = Grid::new(WIDTH, HEIGHT, Element::default());
+    let grid = Grid::new(WIDTH, HEIGHT, Color::default());
 
     loop {
         // UPDATE
 
         // DRAW
-        clear_background(BACKGROUND_COLOR);
-        let texture = Texture2D::from_rgba8(WIDTH, HEIGHT, &grid.as_slice());
-        draw_texture(&texture, 0., 0., WHITE);
+        clear_background(macroquad::color::Color::from(BACKGROUND_COLOR));
+        let texture = Texture2D::from_rgba8(WIDTH, HEIGHT, &grid.to_bytes());
+        draw_texture(&texture, 0., 0., macroquad::color::WHITE);
 
         next_frame().await
     }
