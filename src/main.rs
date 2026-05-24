@@ -1,7 +1,7 @@
 pub mod color;
 pub use color::*;
-mod grid;
-use grid::*;
+mod sprite;
+use sprite::*;
 pub mod framework_bridge;
 use framework_bridge::*;
 
@@ -24,15 +24,14 @@ async fn main() {
     set_window_size(window_width, window_height);
 
     let [grid_width, grid_height] = config.default_grid_size;
-    let grid = Grid::new(grid_width, grid_height, Color::default());
+    let grid = Sprite::new(0., 0., grid_width, grid_height, Color::default());
 
     loop {
         // UPDATE
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
-        let texture =
-            macroquad::texture::Texture2D::from_rgba8(grid.width, grid.height, &grid.to_bytes());
+        let texture = macroquad::texture::Texture2D::from_rgba8(grid.w, grid.h, &grid.to_bytes());
         macroquad::texture::draw_texture(&texture, 0., 0., macroquad::color::WHITE);
 
         macroquad::window::next_frame().await
