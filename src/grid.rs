@@ -1,6 +1,6 @@
 use crate::Color;
 
-pub type GridIndex = u16;
+type GridIndex = u16;
 
 pub struct Grid {
     pub width: GridIndex,

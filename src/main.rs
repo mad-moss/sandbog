@@ -2,6 +2,8 @@ pub mod color;
 pub use color::*;
 mod grid;
 use grid::*;
+pub mod framework_bridge;
+use framework_bridge::*;
 
 const CONFIG_PATH: &str = "config.toml";
 
@@ -19,7 +21,7 @@ async fn main() {
 
     // set window size
     let [window_width, window_height] = config.default_window_size;
-    macroquad::window::request_new_screen_size(window_width as f32, window_height as f32);
+    set_window_size(window_width, window_height);
 
     let [grid_width, grid_height] = config.default_grid_size;
     let grid = Grid::new(grid_width, grid_height, Color::default());
@@ -28,7 +30,7 @@ async fn main() {
         // UPDATE
 
         // DRAW
-        macroquad::window::clear_background(macroquad::color::Color::from(BACKGROUND_COLOR));
+        clear_background(BACKGROUND_COLOR);
         let texture =
             macroquad::texture::Texture2D::from_rgba8(grid.width, grid.height, &grid.to_bytes());
         macroquad::texture::draw_texture(&texture, 0., 0., macroquad::color::WHITE);

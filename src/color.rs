@@ -31,11 +31,3 @@ impl Default for Color {
         GRAY
     }
 }
-
-// MACROQUAD COMPATIBILITY
-impl From<Color> for macroquad::color::Color {
-    fn from(color: Color) -> Self {
-        let [r, g, b] = color.to_array();
-        Self::from_rgba(r, g, b, 255)
-    }
-}
