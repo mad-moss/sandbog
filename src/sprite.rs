@@ -24,7 +24,7 @@ impl Sprite {
             y,
             w,
             h,
-            pixels: vec![fill; w as usize * h as usize],
+            pixels: vec![fill; (w * h) as usize],
         }
     }
     pub fn get_pixel(&self, x: SpriteIndex, y: SpriteIndex) -> Color {
