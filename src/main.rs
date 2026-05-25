@@ -10,7 +10,7 @@ const CONFIG_PATH: &str = "config.toml";
 #[derive(serde::Deserialize)]
 struct Config {
     default_window_size: [u16; 2],
-    default_grid_size: [u16; 2],
+    default_grid_size: [usize; 2],
 }
 
 const BACKGROUND_COLOR: Color = BLACK;
@@ -24,7 +24,13 @@ async fn main() {
     set_window_size(window_width, window_height);
 
     let [grid_width, grid_height] = config.default_grid_size;
-    let grid = Sprite::new(0., 0., grid_width, grid_height, Color::default());
+    let grid = Sprite {
+        x: 0.,
+        y: 0.,
+        w: grid_width,
+        h: grid_height,
+        pixels: vec![Color::default(); grid_width * grid_height],
+    };
 
     loop {
         // UPDATE

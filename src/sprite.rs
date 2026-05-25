@@ -1,36 +1,23 @@
 use crate::Color;
 
 type SpritePosition = f32;
-type SpriteIndex = u16;
 
 pub struct Sprite {
     pub x: SpritePosition,
     pub y: SpritePosition,
-    pub w: SpriteIndex,
-    pub h: SpriteIndex,
+    pub w: usize,
+    pub h: usize,
     pub pixels: Vec<Color>,
 }
 
 impl Sprite {
-    pub fn new(
-        x: SpritePosition,
-        y: SpritePosition,
-        w: SpriteIndex,
-        h: SpriteIndex,
-        fill: Color,
-    ) -> Self {
-        Self {
-            x,
-            y,
-            w,
-            h,
-            pixels: vec![fill; (w * h) as usize],
-        }
+    pub fn fill(&mut self, color: Color) {
+        self.pixels = vec![color; self.w * self.h];
     }
-    pub fn get_pixel(&self, x: SpriteIndex, y: SpriteIndex) -> Color {
-        self.pixels[(self.w * y + x) as usize]
+    pub fn get_pixel(&self, x: usize, y: usize) -> Color {
+        self.pixels[self.w * y + x]
     }
-    pub fn set_pixel(&mut self, x: SpriteIndex, y: SpriteIndex, color: Color) {
-        self.pixels[(self.w * y + x) as usize] = color;
+    pub fn set_pixel(&mut self, x: usize, y: usize, color: Color) {
+        self.pixels[self.w * y + x] = color;
     }
 }
