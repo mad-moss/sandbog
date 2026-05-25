@@ -34,6 +34,6 @@ impl Sprite {
 
 impl From<&Sprite> for macroquad::texture::Texture2D {
     fn from(sprite: &Sprite) -> Self {
-        Self::from_rgba8(sprite.w, sprite.h, &sprite.to_bytes())
+        Self::from_rgba8(sprite.w as u16, sprite.h as u16, &sprite.to_bytes())
     }
 }
