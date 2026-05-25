@@ -1,4 +1,4 @@
-use crate::{Color, Sprite, Texture};
+use crate::{Sprite, Texture, color::*};
 
 type WindowSizeType = u16;
 
@@ -35,6 +35,27 @@ impl Sprite {
         };
 
         macroquad::texture::draw_texture_ex(&macroquad_texture, x, y, color_mask, params);
+    }
+    pub fn draw_grid_lines(&self, grid_color: Color) {
+        let [abs_w, abs_h] = self.transform.absolute_dimensions;
+        let [w, h] = self.texture.dimensions();
+        let [pixel_w, pixel_h] = [abs_w / w as f32, abs_h / h as f32];
+        let [pixel_w, pixel_h] = [pixel_w.round() as u16, pixel_h.round() as u16];
+        let [grid_w, grid_h] = [pixel_w * w, pixel_h * h];
+        let mut pixels = vec![];
+        for x in 1..=grid_w {
+            let on_vertical = x % pixel_w <= 1;
+            for y in 1..=grid_h {
+                let on_grid = on_vertical || y % pixel_h <= 1;
+                let pixel_color = if on_grid { grid_color } else { TRANSPARENT };
+                pixels.push(pixel_color);
+            }
+        }
+        let grid_lines = Sprite {
+            transform: self.transform,
+            texture: Texture::new(grid_w, grid_h, pixels),
+        };
+        grid_lines.draw();
     }
 }
 

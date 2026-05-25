@@ -39,6 +39,7 @@ async fn main() {
         // DRAW
         clear_background(BACKGROUND_COLOR);
         grid.draw();
+        grid.draw_grid_lines(BACKGROUND_COLOR);
 
         macroquad::window::next_frame().await
     }

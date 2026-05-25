@@ -14,6 +14,12 @@ impl Texture {
         texture.fill(color);
         texture
     }
+    pub fn new(w: u16, h: u16, pixels: Vec<Color>) -> Self {
+        Self {
+            dimensions: [w, h],
+            pixels,
+        }
+    }
     pub fn fill(&mut self, color: Color) {
         let [w, h] = self.dimensions;
         self.pixels = vec![color; w as usize * h as usize];
