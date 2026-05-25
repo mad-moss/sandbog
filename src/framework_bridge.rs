@@ -18,8 +18,8 @@ pub fn clear_background(color: Color) {
 
 impl From<Color> for macroquad::color::Color {
     fn from(color: Color) -> Self {
-        let [r, g, b] = color.to_array();
-        Self::from_rgba(r, g, b, 255)
+        let [r, g, b, a] = color.to_rgba();
+        Self::from_rgba(r, g, b, a)
     }
 }
 
@@ -42,16 +42,15 @@ impl Texture {
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
         for pixel in self.pixels() {
-            bytes.extend_from_slice(&pixel.to_array());
-            bytes.push(255);
+            bytes.extend_from_slice(&pixel.to_rgba());
         }
         bytes
     }
 }
 
 impl From<&Texture> for macroquad::texture::Texture2D {
-    fn from(sprite: &Texture) -> Self {
-        let [w, h] = sprite.dimensions();
-        Self::from_rgba8(w as u16, h as u16, &sprite.to_bytes())
+    fn from(texture: &Texture) -> Self {
+        let [w, h] = texture.dimensions();
+        Self::from_rgba8(w as u16, h as u16, &texture.to_bytes())
     }
 }
