@@ -1,16 +1,15 @@
-pub mod color;
-pub use color::*;
-mod sprite;
-use sprite::*;
 pub mod framework_bridge;
-use framework_bridge::*;
+pub mod graphics;
+pub mod sprite;
+pub mod transform;
+pub use crate::{framework_bridge::*, graphics::*, sprite::*, transform::*};
 
 const CONFIG_PATH: &str = "config.toml";
 
 #[derive(serde::Deserialize)]
 struct Config {
     window_size: [u16; 2],
-    grid_size: [usize; 2],
+    grid_size: [u16; 2],
 }
 
 fn load_config(path: &str) -> Config {
@@ -28,17 +27,18 @@ async fn main() {
     let [window_width, window_height] = config.window_size;
     set_window_size(window_width, window_height);
 
-    let [grid_x, grid_y] = [0., 0.];
-    let [grid_width, grid_height] = config.grid_size;
-    let grid = Sprite::new(grid_x, grid_y, grid_width, grid_height, Color::default());
+    let [grid_w, grid_h] = config.grid_size;
+    let grid = Sprite {
+        texture: Texture::blank(grid_w, grid_h, Color::default()),
+        transform: Transform::default(),
+    };
 
     loop {
         // UPDATE
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
-        let [scale_x, scale_y] = [5., 5.];
-        grid.draw_scaled(scale_x, scale_y);
+        grid.draw();
 
         macroquad::window::next_frame().await
     }

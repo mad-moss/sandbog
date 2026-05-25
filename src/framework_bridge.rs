@@ -1,4 +1,4 @@
-use crate::{color::Color, sprite::Sprite};
+use crate::{Color, Sprite, Texture};
 
 type WindowSizeType = u16;
 
@@ -19,25 +19,24 @@ impl From<Color> for macroquad::color::Color {
 
 impl Sprite {
     pub fn draw(&self) {
-        let texture = macroquad::texture::Texture2D::from(self);
-        macroquad::texture::draw_texture(&texture, self.x, self.y, macroquad::color::WHITE);
-    }
-    pub fn draw_scaled(&self, scale_w: f32, scale_h: f32) {
-        let texture = macroquad::texture::Texture2D::from(self);
-        let [w, h] = self.dimensions();
+        let macroquad_texture = macroquad::texture::Texture2D::from(&self.texture);
+        let [x, y] = self.transform.position;
+        let color_mask = macroquad::color::WHITE;
+        // params
+        let [w, h] = self.texture.dimensions();
+        let [scale_w, scale_h] = self.transform.scale;
         let [scaled_w, scaled_h] = [w as f32 * scale_w, h as f32 * scale_h];
         let params = macroquad::texture::DrawTextureParams {
             dest_size: Some(macroquad::math::Vec2::new(scaled_w, scaled_h)),
             ..Default::default()
         };
-        macroquad::texture::draw_texture_ex(
-            &texture,
-            self.x,
-            self.y,
-            macroquad::color::WHITE,
-            params,
-        );
+        //
+
+        macroquad::texture::draw_texture_ex(&macroquad_texture, x, y, color_mask, params);
     }
+}
+
+impl Texture {
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
         for pixel in self.pixels() {
@@ -48,14 +47,9 @@ impl Sprite {
     }
 }
 
-impl From<&Sprite> for macroquad::texture::Texture2D {
-    fn from(sprite: &Sprite) -> Self {
-        let texture_max_dimension = u16::MAX as usize;
+impl From<&Texture> for macroquad::texture::Texture2D {
+    fn from(sprite: &Texture) -> Self {
         let [w, h] = sprite.dimensions();
-        assert!(
-            w <= texture_max_dimension && h <= texture_max_dimension,
-            "sprite too big for macroquad texture"
-        );
         Self::from_rgba8(w as u16, h as u16, &sprite.to_bytes())
     }
 }
