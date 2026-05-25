@@ -1,4 +1,4 @@
-use crate::color::Color;
+use crate::{color::Color, sprite::Sprite};
 
 type WindowSizeType = u16;
 
@@ -14,5 +14,18 @@ impl From<Color> for macroquad::color::Color {
     fn from(color: Color) -> Self {
         let [r, g, b] = color.to_array();
         Self::from_rgba(r, g, b, 255)
+    }
+}
+
+impl Sprite {
+    pub fn draw(&self) {
+        let texture = macroquad::texture::Texture2D::from(self);
+        macroquad::texture::draw_texture(&texture, self.x, self.y, macroquad::color::WHITE);
+    }
+}
+
+impl From<&Sprite> for macroquad::texture::Texture2D {
+    fn from(sprite: &Sprite) -> Self {
+        Self::from_rgba8(sprite.w, sprite.h, &sprite.to_bytes())
     }
 }

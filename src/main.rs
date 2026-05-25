@@ -31,8 +31,7 @@ async fn main() {
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
-        let texture = macroquad::texture::Texture2D::from_rgba8(grid.w, grid.h, &grid.to_bytes());
-        macroquad::texture::draw_texture(&texture, 0., 0., macroquad::color::WHITE);
+        grid.draw();
 
         macroquad::window::next_frame().await
     }

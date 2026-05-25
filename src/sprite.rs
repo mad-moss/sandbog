@@ -27,10 +27,10 @@ impl Sprite {
             pixels: vec![fill; w as usize * h as usize],
         }
     }
-    pub fn get_cell(&self, x: SpriteIndex, y: SpriteIndex) -> Color {
+    pub fn get_pixel(&self, x: SpriteIndex, y: SpriteIndex) -> Color {
         self.pixels[(self.w * y + x) as usize]
     }
-    pub fn set_cell(&mut self, x: SpriteIndex, y: SpriteIndex, color: Color) {
+    pub fn set_pixel(&mut self, x: SpriteIndex, y: SpriteIndex, color: Color) {
         self.pixels[(self.w * y + x) as usize] = color;
     }
     pub fn to_bytes(&self) -> Vec<u8> {

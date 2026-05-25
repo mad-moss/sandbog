@@ -21,7 +21,7 @@ impl Color {
     const fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
     }
-    pub const fn to_array(&self) -> [u8; 3] {
+    pub fn to_array(&self) -> [u8; 3] {
         [self.r, self.g, self.b]
     }
 }
