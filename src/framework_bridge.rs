@@ -2,6 +2,12 @@ use crate::{Color, Sprite, Texture};
 
 type WindowSizeType = u16;
 
+pub fn window_size() -> [f32; 2] {
+    [
+        macroquad::window::screen_width(),
+        macroquad::window::screen_height(),
+    ]
+}
 pub fn set_window_size(w: WindowSizeType, h: WindowSizeType) {
     macroquad::window::request_new_screen_size(w as f32, h as f32);
 }
@@ -22,15 +28,11 @@ impl Sprite {
         let macroquad_texture = macroquad::texture::Texture2D::from(&self.texture);
         let [x, y] = self.transform.position;
         let color_mask = macroquad::color::WHITE;
-        // params
-        let [w, h] = self.texture.dimensions();
-        let [scale_w, scale_h] = self.transform.scale;
-        let [scaled_w, scaled_h] = [w as f32 * scale_w, h as f32 * scale_h];
+        let [absolute_w, absolute_h] = self.transform.absolute_dimensions;
         let params = macroquad::texture::DrawTextureParams {
-            dest_size: Some(macroquad::math::Vec2::new(scaled_w, scaled_h)),
+            dest_size: Some(macroquad::math::Vec2::new(absolute_w, absolute_h)),
             ..Default::default()
         };
-        //
 
         macroquad::texture::draw_texture_ex(&macroquad_texture, x, y, color_mask, params);
     }

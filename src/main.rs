@@ -28,13 +28,13 @@ async fn main() {
     set_window_size(window_width, window_height);
 
     let [grid_w, grid_h] = config.grid_size;
-    let grid = Sprite {
-        texture: Texture::blank(grid_w, grid_h, Color::default()),
-        transform: Transform::default(),
-    };
+    let [grid_x, grid_y] = [0., 0.];
+    let mut grid = Sprite::blank(grid_x, grid_y, grid_w, grid_h, Color::default());
 
     loop {
         // UPDATE
+        let [window_w, window_h] = window_size();
+        grid.transform.scale_to_fit(window_w, window_h);
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
