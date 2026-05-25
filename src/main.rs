@@ -28,14 +28,9 @@ async fn main() {
     let [window_width, window_height] = config.window_size;
     set_window_size(window_width, window_height);
 
+    let [grid_x, grid_y] = [0., 0.];
     let [grid_width, grid_height] = config.grid_size;
-    let grid = Sprite {
-        x: 0.,
-        y: 0.,
-        w: grid_width,
-        h: grid_height,
-        pixels: vec![Color::default(); grid_width * grid_height],
-    };
+    let grid = Sprite::new(grid_x, grid_y, grid_width, grid_height, Color::default());
 
     loop {
         // UPDATE

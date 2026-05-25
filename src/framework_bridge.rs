@@ -24,7 +24,7 @@ impl Sprite {
     }
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
-        for pixel in &self.pixels {
+        for pixel in self.pixels() {
             bytes.extend_from_slice(&pixel.to_array());
             bytes.push(255);
         }
@@ -34,6 +34,12 @@ impl Sprite {
 
 impl From<&Sprite> for macroquad::texture::Texture2D {
     fn from(sprite: &Sprite) -> Self {
-        Self::from_rgba8(sprite.w as u16, sprite.h as u16, &sprite.to_bytes())
+        let texture_max_dimension = u16::MAX as usize;
+        let [w, h] = sprite.dimensions();
+        assert!(
+            w <= texture_max_dimension && h <= texture_max_dimension,
+            "sprite too big for macroquad texture"
+        );
+        Self::from_rgba8(w as u16, h as u16, &sprite.to_bytes())
     }
 }
