@@ -8,7 +8,7 @@ pub struct Sprite {
     pub y: SpritePosition,
     pub w: SpriteIndex,
     pub h: SpriteIndex,
-    pixels: Vec<Color>,
+    pub pixels: Vec<Color>,
 }
 
 impl Sprite {
@@ -32,12 +32,5 @@ impl Sprite {
     }
     pub fn set_pixel(&mut self, x: SpriteIndex, y: SpriteIndex, color: Color) {
         self.pixels[(self.w * y + x) as usize] = color;
-    }
-    pub fn to_bytes(&self) -> Vec<u8> {
-        let mut bytes = vec![];
-        for pixel in &self.pixels {
-            bytes.extend_from_slice(&pixel.to_array());
-        }
-        bytes
     }
 }

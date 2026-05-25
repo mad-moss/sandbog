@@ -22,6 +22,14 @@ impl Sprite {
         let texture = macroquad::texture::Texture2D::from(self);
         macroquad::texture::draw_texture(&texture, self.x, self.y, macroquad::color::WHITE);
     }
+    pub fn to_bytes(&self) -> Vec<u8> {
+        let mut bytes = vec![];
+        for pixel in &self.pixels {
+            bytes.extend_from_slice(&pixel.to_array());
+            bytes.push(255);
+        }
+        bytes
+    }
 }
 
 impl From<&Sprite> for macroquad::texture::Texture2D {
