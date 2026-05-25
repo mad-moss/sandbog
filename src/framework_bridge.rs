@@ -22,6 +22,22 @@ impl Sprite {
         let texture = macroquad::texture::Texture2D::from(self);
         macroquad::texture::draw_texture(&texture, self.x, self.y, macroquad::color::WHITE);
     }
+    pub fn draw_scaled(&self, scale_w: f32, scale_h: f32) {
+        let texture = macroquad::texture::Texture2D::from(self);
+        let [w, h] = self.dimensions();
+        let [scaled_w, scaled_h] = [w as f32 * scale_w, h as f32 * scale_h];
+        let params = macroquad::texture::DrawTextureParams {
+            dest_size: Some(macroquad::math::Vec2::new(scaled_w, scaled_h)),
+            ..Default::default()
+        };
+        macroquad::texture::draw_texture_ex(
+            &texture,
+            self.x,
+            self.y,
+            macroquad::color::WHITE,
+            params,
+        );
+    }
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
         for pixel in self.pixels() {

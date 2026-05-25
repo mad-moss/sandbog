@@ -37,7 +37,8 @@ async fn main() {
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
-        grid.draw();
+        let [scale_x, scale_y] = [5., 5.];
+        grid.draw_scaled(scale_x, scale_y);
 
         macroquad::window::next_frame().await
     }
