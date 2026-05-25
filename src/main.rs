@@ -13,6 +13,11 @@ struct Config {
     grid_size: [usize; 2],
 }
 
+fn load_config(path: &str) -> Config {
+    let config_contents = std::fs::read_to_string(path).unwrap();
+    toml::from_str(&config_contents).unwrap()
+}
+
 const BACKGROUND_COLOR: Color = BLACK;
 
 #[macroquad::main("Sandbog")]
@@ -41,9 +46,4 @@ async fn main() {
 
         macroquad::window::next_frame().await
     }
-}
-
-fn load_config(path: &str) -> Config {
-    let config_string = std::fs::read_to_string(path).unwrap();
-    toml::from_str(&config_string).unwrap()
 }
