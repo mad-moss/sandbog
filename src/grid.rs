@@ -1,29 +1,14 @@
-pub struct Grid<T: Clone> {
+pub struct Grid<T> {
     dimensions: [u16; 2],
     values: Vec<T>,
 }
 
-impl<T> Grid<T>
-where
-    T: Clone,
-{
-    pub fn blank(w: u16, h: u16, value: T) -> Self {
-        let mut grid = Self {
-            dimensions: [w, h],
-            values: vec![],
-        };
-        grid.fill(value);
-        grid
-    }
+impl<T> Grid<T> {
     pub fn new(w: u16, h: u16, values: Vec<T>) -> Self {
         Self {
             dimensions: [w, h],
             values,
         }
-    }
-    pub fn fill(&mut self, value: T) {
-        let [w, h] = self.dimensions;
-        self.values = vec![value; w as usize * h as usize];
     }
     pub fn get_value(&self, x: u16, y: u16) -> &T {
         let i = self.index(x, y);
@@ -43,5 +28,23 @@ where
     }
     pub fn values(&self) -> &Vec<T> {
         &self.values
+    }
+}
+
+impl<T> Grid<T>
+where
+    T: Clone,
+{
+    pub fn blank(w: u16, h: u16, value: T) -> Self {
+        let mut grid = Self {
+            dimensions: [w, h],
+            values: vec![],
+        };
+        grid.fill(value);
+        grid
+    }
+    pub fn fill(&mut self, value: T) {
+        let [w, h] = self.dimensions;
+        self.values = vec![value; w as usize * h as usize];
     }
 }
