@@ -11,7 +11,7 @@ pub const MAGENTA: Color = Color::from_rgb(255, 255, 0);
 pub const YELLOW: Color = Color::from_rgb(255, 0, 255);
 pub const TRANSPARENT: Color = Color::from_rgba(0, 0, 0, 0);
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub struct Color {
     r: u8,
     g: u8,
