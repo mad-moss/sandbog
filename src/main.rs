@@ -1,8 +1,10 @@
 pub mod framework_bridge;
 pub mod graphics;
+pub mod grid;
+pub mod rule;
 pub mod sprite;
 pub mod transform;
-pub use crate::{framework_bridge::display::*, graphics::*, sprite::*, transform::*};
+pub use crate::{framework_bridge::display::*, graphics::*, grid::*, sprite::*, transform::*};
 
 const CONFIG_PATH: &str = "config.toml";
 
