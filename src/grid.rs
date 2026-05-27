@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub struct Grid<T> {
     dimensions: [u16; 2],
     values: Vec<T>,
