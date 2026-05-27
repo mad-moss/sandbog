@@ -63,7 +63,7 @@ pub mod display {
     impl Texture {
         pub fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = vec![];
-            for pixel in self.pixels() {
+            for pixel in self.values() {
                 bytes.extend_from_slice(&pixel.to_rgba());
             }
             bytes

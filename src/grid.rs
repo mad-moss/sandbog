@@ -25,11 +25,11 @@ where
         let [w, h] = self.dimensions;
         self.values = vec![value; w as usize * h as usize];
     }
-    pub fn get_pixel(&self, x: u16, y: u16) -> &T {
+    pub fn get_value(&self, x: u16, y: u16) -> &T {
         let i = self.index(x, y);
         &self.values[i]
     }
-    pub fn set_pixel(&mut self, x: u16, y: u16, value: T) {
+    pub fn set_value(&mut self, x: u16, y: u16, value: T) {
         let i = self.index(x, y);
         self.values[i] = value;
     }
@@ -41,7 +41,7 @@ where
     pub fn dimensions(&self) -> [u16; 2] {
         self.dimensions
     }
-    pub fn pixels(&self) -> &Vec<T> {
+    pub fn values(&self) -> &Vec<T> {
         &self.values
     }
 }
