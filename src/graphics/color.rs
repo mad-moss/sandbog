@@ -36,3 +36,17 @@ impl Default for Color {
         GRAY
     }
 }
+
+impl From<[u8; 3]> for Color {
+    fn from(value: [u8; 3]) -> Self {
+        let [r, g, b] = value;
+        Self { r, g, b, a: 255 }
+    }
+}
+
+impl From<[u8; 4]> for Color {
+    fn from(value: [u8; 4]) -> Self {
+        let [r, g, b, a] = value;
+        Self { r, g, b, a }
+    }
+}
