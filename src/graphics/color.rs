@@ -7,8 +7,8 @@ pub const RED: Color = Color::from_rgb(255, 0, 0);
 pub const BLUE: Color = Color::from_rgb(0, 255, 0);
 pub const GREEN: Color = Color::from_rgb(0, 0, 255);
 pub const CYAN: Color = Color::from_rgb(0, 255, 255);
-pub const MAGENTA: Color = Color::from_rgb(255, 255, 0);
-pub const YELLOW: Color = Color::from_rgb(255, 0, 255);
+pub const MAGENTA: Color = Color::from_rgb(255, 0, 255);
+pub const YELLOW: Color = Color::from_rgb(255, 255, 0);
 pub const TRANSPARENT: Color = Color::from_rgba(0, 0, 0, 0);
 
 #[derive(Clone, Copy, PartialEq, Eq)]
