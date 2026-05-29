@@ -26,6 +26,7 @@ const BACKGROUND_COLOR: Color = BLACK;
 
 #[macroquad::main("Sandbog")]
 async fn main() {
+    macroquad::texture::set_default_filter_mode(macroquad::texture::FilterMode::Nearest);
     let config = load_config(CONFIG_PATH);
 
     // set window size
