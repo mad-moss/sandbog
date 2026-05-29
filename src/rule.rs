@@ -5,8 +5,9 @@ pub type RuleComponent = Grid<ColorLike>;
 impl RuleComponent {
     fn bounds_check(&self, grid: &Texture, x: u16, y: u16) -> Result<(), crate::OutOfBoundsError> {
         let [w, h] = self.dimensions();
-        let condition_bounds = [x + w, y + h];
-        (condition_bounds <= grid.dimensions())
+        let [condition_right, condition_bottom] = [x + w, y + h];
+        let [grid_w, grid_h] = grid.dimensions();
+        (condition_right <= grid_w && condition_bottom <= grid_h)
             .then_some(())
             .ok_or(crate::OutOfBoundsError)
     }
