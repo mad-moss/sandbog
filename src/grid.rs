@@ -11,18 +11,21 @@ impl<T> Grid<T> {
             values,
         }
     }
-    pub fn get_value(&self, x: u16, y: u16) -> &T {
-        let i = self.index(x, y);
-        &self.values[i]
+    pub fn get_value(&self, x: u16, y: u16) -> Result<&T, crate::OutOfBoundsError> {
+        let i = self.index(x, y)?;
+        Ok(&self.values[i])
     }
-    pub fn set_value(&mut self, x: u16, y: u16, value: T) {
-        let i = self.index(x, y);
+    pub fn set_value(&mut self, x: u16, y: u16, value: T) -> Result<(), crate::OutOfBoundsError> {
+        let i = self.index(x, y)?;
         self.values[i] = value;
+        Ok(())
     }
-    fn index(&self, x: u16, y: u16) -> usize {
+    fn index(&self, x: u16, y: u16) -> Result<usize, crate::OutOfBoundsError> {
         let [w, h] = self.dimensions;
-        assert!(x < w && y < h, "index out of bounds");
-        w as usize * y as usize + x as usize
+        if x >= w || y >= h {
+            return Err(crate::OutOfBoundsError);
+        }
+        Ok(w as usize * y as usize + x as usize)
     }
     pub fn dimensions(&self) -> [u16; 2] {
         self.dimensions

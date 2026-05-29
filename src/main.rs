@@ -6,6 +6,9 @@ pub mod sprite;
 pub mod transform;
 pub use crate::{framework_bridge::display::*, graphics::*, grid::*, sprite::*, transform::*};
 
+#[derive(Debug)]
+pub struct OutOfBoundsError;
+
 const CONFIG_PATH: &str = "config.toml";
 
 #[derive(serde::Deserialize)]
