@@ -52,12 +52,12 @@ async fn main() {
         let rand_x = macroquad::rand::gen_range(0, grid_w);
         let rand_y = macroquad::rand::gen_range(0, grid_h);
         rule.check_apply(&mut grid.texture, rand_x, rand_y);
-        println!("{}", macroquad::time::get_fps());
+        // println!("{}", macroquad::time::get_fps());
 
         // DRAW
         clear_background(BACKGROUND_COLOR);
         grid.draw();
-        grid.draw_grid_lines(BACKGROUND_COLOR);
+        // grid.draw_grid_lines(BACKGROUND_COLOR);
 
         macroquad::window::next_frame().await
     }
