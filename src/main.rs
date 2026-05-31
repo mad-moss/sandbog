@@ -49,9 +49,11 @@ async fn main() {
         let [window_w, window_h] = window_size();
         grid.transform.scale_to_fit(window_w, window_h);
 
-        let rand_x = macroquad::rand::gen_range(0, grid_w);
-        let rand_y = macroquad::rand::gen_range(0, grid_h);
-        rule.check_apply(&mut grid.texture, rand_x, rand_y);
+        for _ in 0..(grid_w * grid_h) {
+            let rand_x = macroquad::rand::gen_range(0, grid_w);
+            let rand_y = macroquad::rand::gen_range(0, grid_h);
+            rule.check_apply(&mut grid.texture, rand_x, rand_y);
+        }
         // println!("{}", macroquad::time::get_fps());
 
         // DRAW
