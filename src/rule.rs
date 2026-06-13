@@ -11,6 +11,27 @@ impl RuleComponent {
             .then_some(())
             .ok_or(crate::OutOfBoundsError)
     }
+    fn mirror_horizontal(&self) -> Self {
+        let [w, h] = self.dimensions();
+        let new_values: Vec<ColorLike> = self
+            .values()
+            .chunks(w as usize)
+            .flat_map(|c| c.iter().rev())
+            .cloned()
+            .collect();
+
+        Self::new(w, h, new_values)
+    }
+    fn mirror_vertical(&self) -> Self {
+        let [w, h] = self.dimensions();
+        let new_values: Vec<ColorLike> = self
+            .values()
+            .rchunks(w as usize)
+            .flatten()
+            .cloned()
+            .collect();
+        Self::new(w, h, new_values)
+    }
 }
 
 pub struct Rule {
