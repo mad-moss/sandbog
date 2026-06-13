@@ -73,7 +73,7 @@ pub mod display {
     impl From<&Texture> for macroquad::texture::Texture2D {
         fn from(texture: &Texture) -> Self {
             let [w, h] = texture.dimensions();
-            Self::from_rgba8(w as u16, h as u16, &texture.to_bytes())
+            Self::from_rgba8(w, h, &texture.to_bytes())
         }
     }
 }
