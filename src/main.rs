@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 pub mod framework_bridge;
 pub mod graphics;
 pub mod grid;
